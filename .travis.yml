@@ -17,3 +17,4 @@ deploy:
   skip_cleanup: true
   keep_history: true
   local_dir: docs
+  github_token: $GITHUB_TOKEN
