@@ -1,6 +1,6 @@
-# FastImage.cr
+# fastimage.cr
 
-FastImage finds the size or type of an image given its uri by fetching as little as needed.
+Library that finds the dimensions and type of an image fetching as little as needed.
 
 Inspired by [FastImage for Ruby](https://github.com/sdsykes/fastimage).
 
