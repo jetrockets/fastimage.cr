@@ -1,8 +1,10 @@
 # fastimage.cr
 
-Library that finds the dimensions and type of an image fetching as little as needed.
+[![Build Status](https://travis-ci.org/jetrockets/fastimage.cr.svg?branch=master)](https://travis-ci.org/jetrockets/fastimage.cr)
+[![GitHub release](https://img.shields.io/github/release/jetrockets/fastimage.cr.svg)](https://GitHub.com/jetrockets/fastimage.cr/releases/)
+[![GitHub license](https://img.shields.io/github/license/jetrockets/fastimage.cr)](https://github.com/jetrockets/fastimage.cr/blob/master/LICENSE)
 
-Inspired by [FastImage for Ruby](https://github.com/sdsykes/fastimage).
+Library that finds the dimensions and type of an image fetching as little as needed.
 
 ## Installation
 
