@@ -45,8 +45,8 @@ class FastImage
     MAGICK = Bytes[71, 73]
 
     private def decode(buffer : FastImage::Buffer)
-      @width = IO::ByteFormat::BigEndian.decode(UInt16, buffer.bytes(6..7)).to_u32
-      @height = IO::ByteFormat::BigEndian.decode(UInt16, buffer.bytes(8..9)).to_u32
+      @width = IO::ByteFormat::SystemEndian.decode(UInt16, buffer.bytes(6..7)).to_u32
+      @height = IO::ByteFormat::SystemEndian.decode(UInt16, buffer.bytes(8..9)).to_u32
     end
   end
 
