@@ -1,6 +1,6 @@
 class FastImage
   struct JPEG < Meta
-    MAGICK = [SEPARATOR, SOI_MARKER]
+    MAGICK = Bytes[SEPARATOR, SOI_MARKER]
 
     SEPARATOR    = 0xff
 

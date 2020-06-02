@@ -40,16 +40,16 @@ FastImage.dimensions("https://file-examples.com/wp-content/uploads/2017/10/file_
   - [ ] Base64
 - [ ] File formats
   - [X] BMP
-  - [ ] CUR
+  - [X] CUR
   - [X] GIF
-  - [ ] ICO
+  - [X] ICO
   - [X] JPEG
     - [ ] parse EXIF information for JPEG orientation
   - [X] PNG
   - [ ] PSD
   - [ ] SVG
   - [ ] TIFF
-  - [ ] WEBP
+  - [X] WEBP
 
 
 ## Contributing

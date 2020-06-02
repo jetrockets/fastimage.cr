@@ -1,6 +1,6 @@
 class FastImage
   struct BMP < Meta
-    MAGICK = "BM".bytes
+    MAGICK = "BM".to_slice
 
     private def decode(io : IO)
       tmp = Bytes.new(26 - initial_pos)

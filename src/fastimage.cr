@@ -45,11 +45,13 @@ class FastImage
   end
 
   def parse_type(io : IO, type_only = false, **options)
-    tmp = [io.read_byte, io.read_byte]
+    tmp = Bytes.new(2)
+    io.read(tmp)
+    # tmp = [io.read_byte, io.read_byte]
     case tmp
     when BMP::MAGICK
       type_only ? BMP.new : BMP.new(io, 2)
-    when [71, 73]
+    when GIF::MAGICK
       type_only ? GIF.new : GIF.new(io, 2)
     when PNG::MAGICK
       type_only ? PNG.new : PNG.new(io, 2)
@@ -59,18 +61,21 @@ class FastImage
       type_only ? PSD.new : PSD.new(io, 2)
     when [77, 77]
       type_only ? TIFF.new : TIFF.new(io, 2)
-    when [0, 0]
-      if io.read_byte == 1
+    when ICO::MAGICK
+      byte = io.read_byte
+      if byte == 1
         type_only ? ICO.new : ICO.new(io, 3)
-      elsif io.read_byte == 2
+      elsif byte == 2
         type_only ? CUR.new : CUR.new(io, 3)
       else
         nil
       end
-    when [82, 73]
-      # if cache[8..11] == Bytes[87, 69, 66, 80]
-      #   type_only ? WEBP.new : WEBP.new(cache)
-      # end
+    when WEBP::MAGICK[0..1]
+      io.read(tmp)
+
+      if tmp == WEBP::MAGICK[2..3]
+        type_only ? WEBP.new : WEBP.new(io, 4)
+      end
     when [60, 63], [60, 33] # <?xml, <!D
       # if cache.gets(250).includes?("<svg")
       #   type_only ? SVG.new : SVG.new(cache)

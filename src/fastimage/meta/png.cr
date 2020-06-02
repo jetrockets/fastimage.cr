@@ -1,6 +1,6 @@
 class FastImage
   struct PNG < Meta
-    MAGICK = [137, 80]
+    MAGICK = Bytes[137, 80]
 
     private def decode(io : IO)
       tmp = Bytes.new(24 - initial_pos)
