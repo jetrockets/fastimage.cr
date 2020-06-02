@@ -1,15 +1,17 @@
-require "./buffer"
-
 class FastImage
+  # Struct to support different file types parsing
   abstract struct Meta
     getter width : UInt32? = nil
     getter height : UInt32? = nil
+    getter initial_pos = 0
 
     def initialize
     end
 
-    def initialize(buffer : FastImage::Buffer)
-      decode(buffer)
+    # We pass original position to #initialize, because some IOs (like HTTP) does not support #pos
+    def initialize(io : IO, initial_pos = 0)
+      @initial_pos = initial_pos
+      decode(io)
     end
 
     macro inherited
@@ -22,89 +24,16 @@ class FastImage
       [width, height]
     end
 
-    private abstract def decode(buffer : FastImage::Buffer)
-  end
+    private abstract def decode(io : IO)
 
-  struct BMP < Meta
-    MAGICK = "BM".to_slice
-
-    private def decode(buffer : FastImage::Buffer)
-      header = IO::ByteFormat::SystemEndian.decode(UInt8, buffer.bytes(14..15))
-
-      if header >= 40
-        @width = IO::ByteFormat::LittleEndian.decode(Int32, buffer.bytes(18..21)).abs.to_u32
-        @height = IO::ByteFormat::LittleEndian.decode(Int32, buffer.bytes(22..25)).abs.to_u32
-      else
-        @width = IO::ByteFormat::LittleEndian.decode(UInt8, buffer.bytes(18..19)).to_u32
-        @height = IO::ByteFormat::LittleEndian.decode(UInt8, buffer.bytes(20..21)).to_u32
-      end
+    private def relative(pos : Int)
+      pos - @initial_pos
     end
-  end
 
-  struct GIF < Meta
-    MAGICK = Bytes[71, 73]
-
-    private def decode(buffer : FastImage::Buffer)
-      @width = IO::ByteFormat::SystemEndian.decode(UInt16, buffer.bytes(6..7)).to_u32
-      @height = IO::ByteFormat::SystemEndian.decode(UInt16, buffer.bytes(8..9)).to_u32
-    end
-  end
-
-  struct PNG < Meta
-    MAGICK = "\x89P".to_slice
-
-    private def decode(buffer : FastImage::Buffer)
-      @width = IO::ByteFormat::BigEndian.decode(UInt32, buffer.bytes(16..19))
-      @height = IO::ByteFormat::BigEndian.decode(UInt32, buffer.bytes(20..23))
-    end
-  end
-
-  struct JPEG < Meta
-    # MAGICK = "BM".bytes
-
-    private def decode(buffer : FastImage::Buffer)
-    end
-  end
-
-  struct PSD < Meta
-    # MAGICK = "BM".bytes
-
-    private def decode(buffer : FastImage::Buffer)
-    end
-  end
-
-  struct TIFF < Meta
-    # MAGICK = "BM".bytes
-
-    private def decode(buffer : FastImage::Buffer)
-    end
-  end
-
-  struct ICO < Meta
-    # MAGICK = "BM".bytes
-
-    private def decode(buffer : FastImage::Buffer)
-    end
-  end
-
-  struct CUR < Meta
-    # MAGICK = "BM".bytes
-
-    private def decode(buffer : FastImage::Buffer)
-    end
-  end
-
-  struct WEBP < Meta
-    # MAGICK = "BM".bytes
-
-    private def decode(buffer : FastImage::Buffer)
-    end
-  end
-
-  struct SVG < Meta
-    # MAGICK = "BM".bytes
-
-    private def decode(buffer : FastImage::Buffer)
+    private def relative(range : Range(Int32, Int32))
+      ((range.begin - @initial_pos)..(range.end - @initial_pos))
     end
   end
 end
+
+require "./meta/*"

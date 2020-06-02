@@ -22,7 +22,34 @@ Library that finds the dimensions and type of an image fetching as little as nee
 
 ```crystal
 require "fastimage"
+
+FastImage.type("https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png") #png
+
+FastImage.dimensions("https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png") #[2200, 1467]
 ```
+
+## Feature Progress
+
+- [ ] Data sources
+  - [X] Remote file
+    - [X] HTTP/HTTPS
+    - [ ] Proxy
+    - [ ] HTTP redirects
+  - [X] Local file
+  - [ ] IO
+  - [ ] Base64
+- [ ] File formats
+  - [X] BMP
+  - [ ] CUR
+  - [X] GIF
+  - [ ] ICO
+  - [X] JPEG
+    - [ ] parse EXIF information for JPEG orientation
+  - [X] PNG
+  - [ ] PSD
+  - [ ] SVG
+  - [ ] TIFF
+  - [ ] WEBP
 
 
 ## Contributing
