@@ -50,13 +50,18 @@
       
     </li>
   
-  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/Buffer" data-name="fastimage::buffer">
-      <a href="../FastImage/Buffer.html">Buffer</a>
+  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/CUR" data-name="fastimage::cur">
+      <a href="../FastImage/CUR.html">CUR</a>
       
     </li>
   
-  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/CUR" data-name="fastimage::cur">
-      <a href="../FastImage/CUR.html">CUR</a>
+  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/Error" data-name="fastimage::error">
+      <a href="../FastImage/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/FormatError" data-name="fastimage::formaterror">
+      <a href="../FastImage/FormatError.html">FormatError</a>
       
     </li>
   
@@ -152,14 +157,102 @@
   </h2>
   
     
-      <a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage/meta.cr#L62" target="_blank">
-        fastimage/meta.cr
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta/jpeg.cr#L2" target="_blank">
+        fastimage/meta/jpeg.cr
       </a>
     
     <br/>
   
 
 
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="COM_MARKER">
+        <strong>COM_MARKER</strong> = <code><span class="n">254</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>ReSTart (7)</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="EOI_MARKER">
+        <strong>EOI_MARKER</strong> = <code><span class="n">217</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>Start Of Image</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="MAGICK">
+        <strong>MAGICK</strong> = <code>[<span class="t">SEPARATOR</span>, <span class="t">SOI_MARKER</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="RST_0_MARKER">
+        <strong>RST_0_MARKER</strong> = <code><span class="n">208</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>Start Of Frame (Progressive)</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="RST_7_MARKER">
+        <strong>RST_7_MARKER</strong> = <code><span class="n">215</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>ReSTart (0)</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="SEPARATOR">
+        <strong>SEPARATOR</strong> = <code><span class="n">255</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="SOF_0_MARKER">
+        <strong>SOF_0_MARKER</strong> = <code><span class="n">192</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>End Of Image</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="SOF_2_MARKER">
+        <strong>SOF_2_MARKER</strong> = <code><span class="n">194</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>Start Of Frame (Baseline Sequential)</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="SOI_MARKER">
+        <strong>SOI_MARKER</strong> = <code><span class="n">216</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="SOS_MARKER">
+        <strong>SOS_MARKER</strong> = <code><span class="n">218</span></code>
+      </dt>
+      
+    
+  </dl>
 
 
 
@@ -205,6 +298,11 @@
     height</a>, 
     
   
+    <a href="../FastImage/Meta.html#initial_pos:Int32-instance-method" class="tooltip">
+      <span>initial_pos : Int32</span>
+    initial_pos</a>, 
+    
+  
     <a href="../FastImage/Meta.html#width:UInt32?-instance-method" class="tooltip">
       <span>width : UInt32?</span>
     width</a>
@@ -217,8 +315,8 @@
   <h3>Constructor methods inherited from struct <code><a href="../FastImage/Meta.html">FastImage::Meta</a></code></h3>
   
   
-    <a href="../FastImage/Meta.html#new(buffer:FastImage::Buffer)-class-method" class="tooltip">
-      <span>new(buffer : FastImage::Buffer)<br/>new</span>
+    <a href="../FastImage/Meta.html#new(io:IO,initial_pos=0)-class-method" class="tooltip">
+      <span>new(io : IO, initial_pos = <span class="n">0</span>)<br/>new</span>
     new</a>
     
   
@@ -285,7 +383,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage/meta.cr#L62" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta/jpeg.cr#L2" target="_blank">View source</a>]
         
       </div>
     </div>

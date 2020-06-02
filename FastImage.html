@@ -50,13 +50,18 @@
       
     </li>
   
-  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/Buffer" data-name="fastimage::buffer">
-      <a href="FastImage/Buffer.html">Buffer</a>
+  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/CUR" data-name="fastimage::cur">
+      <a href="FastImage/CUR.html">CUR</a>
       
     </li>
   
-  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/CUR" data-name="fastimage::cur">
-      <a href="FastImage/CUR.html">CUR</a>
+  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/Error" data-name="fastimage::error">
+      <a href="FastImage/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/FormatError" data-name="fastimage::formaterror">
+      <a href="FastImage/FormatError.html">FormatError</a>
       
     </li>
   
@@ -152,21 +157,84 @@
   </h2>
   
     
-      <a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage/buffer.cr#L1" target="_blank">
-        fastimage/buffer.cr
-      </a>
-    
-    <br/>
-  
-    
-      <a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage/meta.cr#L3" target="_blank">
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta.cr#L1" target="_blank">
         fastimage/meta.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage.cr#L6" target="_blank">
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta/bmp.cr#L1" target="_blank">
+        fastimage/meta/bmp.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta/cur.cr#L1" target="_blank">
+        fastimage/meta/cur.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta/gif.cr#L1" target="_blank">
+        fastimage/meta/gif.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta/ico.cr#L1" target="_blank">
+        fastimage/meta/ico.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta/jpeg.cr#L1" target="_blank">
+        fastimage/meta/jpeg.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta/png.cr#L1" target="_blank">
+        fastimage/meta/png.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta/psd.cr#L1" target="_blank">
+        fastimage/meta/psd.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta/svg.cr#L1" target="_blank">
+        fastimage/meta/svg.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta/tiff.cr#L1" target="_blank">
+        fastimage/meta/tiff.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta/webp.cr#L1" target="_blank">
+        fastimage/meta/webp.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage.cr#L6" target="_blank">
         fastimage.cr
       </a>
     
@@ -236,12 +304,12 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#fetch_using_http(**options)-instance-method" class="signature"><strong>#fetch_using_http</strong>(**options)</a>
+        <a href="#fetch_using_file(**options)-instance-method" class="signature"><strong>#fetch_using_file</strong>(**options)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#fetch_using_read(**options)-instance-method" class="signature"><strong>#fetch_using_read</strong>(**options)</a>
+        <a href="#fetch_using_http(**options)-instance-method" class="signature"><strong>#fetch_using_http</strong>(**options)</a>
         
       </li>
     
@@ -251,7 +319,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#parse_type(buffer:Buffer,type_only=false,**options)-instance-method" class="signature"><strong>#parse_type</strong>(buffer : Buffer, type_only = <span class="n">false</span>, **options)</a>
+        <a href="#parse_type(io:IO,type_only=false,**options)-instance-method" class="signature"><strong>#parse_type</strong>(io : IO, type_only = <span class="n">false</span>, **options)</a>
         
       </li>
     
@@ -311,7 +379,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -327,7 +395,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage.cr#L23" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -355,7 +423,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage.cr#L14" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -371,7 +439,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -388,6 +456,22 @@
     Instance Method Detail
   </h2>
   
+    <div class="entry-detail" id="fetch_using_file(**options)-instance-method">
+      <div class="signature">
+        
+        def <strong>fetch_using_file</strong>(**options)
+
+        <a class="method-permalink" href="#fetch_using_file(**options)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage.cr#L41" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="fetch_using_http(**options)-instance-method">
       <div class="signature">
         
@@ -399,23 +483,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage.cr#L31" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="fetch_using_read(**options)-instance-method">
-      <div class="signature">
-        
-        def <strong>fetch_using_read</strong>(**options)
-
-        <a class="method-permalink" href="#fetch_using_read(**options)-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage.cr#L37" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage.cr#L35" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -431,23 +499,23 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage.cr#L12" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="parse_type(buffer:Buffer,type_only=false,**options)-instance-method">
+    <div class="entry-detail" id="parse_type(io:IO,type_only=false,**options)-instance-method">
       <div class="signature">
         
-        def <strong>parse_type</strong>(buffer : <a href="FastImage/Buffer.html">Buffer</a>, type_only = <span class="n">false</span>, **options)
+        def <strong>parse_type</strong>(io : IO, type_only = <span class="n">false</span>, **options)
 
-        <a class="method-permalink" href="#parse_type(buffer:Buffer,type_only=false,**options)-instance-method">#</a>
+        <a class="method-permalink" href="#parse_type(io:IO,type_only=false,**options)-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage.cr#L43" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage.cr#L47" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -463,7 +531,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>

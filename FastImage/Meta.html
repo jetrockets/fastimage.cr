@@ -50,13 +50,18 @@
       
     </li>
   
-  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/Buffer" data-name="fastimage::buffer">
-      <a href="../FastImage/Buffer.html">Buffer</a>
+  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/CUR" data-name="fastimage::cur">
+      <a href="../FastImage/CUR.html">CUR</a>
       
     </li>
   
-  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/CUR" data-name="fastimage::cur">
-      <a href="../FastImage/CUR.html">CUR</a>
+  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/Error" data-name="fastimage::error">
+      <a href="../FastImage/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/FormatError" data-name="fastimage::formaterror">
+      <a href="../FastImage/FormatError.html">FormatError</a>
       
     </li>
   
@@ -129,6 +134,17 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Struct to support different file types parsing</p>
+
 
 
 
@@ -184,7 +200,7 @@
   </h2>
   
     
-      <a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage/meta.cr#L4" target="_blank">
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta.cr#L3" target="_blank">
         fastimage/meta.cr
       </a>
     
@@ -206,7 +222,9 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new(buffer:FastImage::Buffer)-class-method" class="signature"><strong>.new</strong>(buffer : FastImage::Buffer)</a>
+        <a href="#new(io:IO,initial_pos=0)-class-method" class="signature"><strong>.new</strong>(io : IO, initial_pos = <span class="n">0</span>)</a>
+        
+          <div class="summary"><p>We pass original position to #initialize, because some IOs (like HTTP) does not support #pos</p></div>
         
       </li>
     
@@ -238,6 +256,11 @@
     
       <li class="entry-summary">
         <a href="#height:UInt32?-instance-method" class="signature"><strong>#height</strong> : UInt32?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#initial_pos:Int32-instance-method" class="signature"><strong>#initial_pos</strong> : Int32</a>
         
       </li>
     
@@ -296,18 +319,23 @@
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="new(buffer:FastImage::Buffer)-class-method">
+    <div class="entry-detail" id="new(io:IO,initial_pos=0)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(buffer : <a href="../FastImage/Buffer.html">FastImage::Buffer</a>)
+        def self.<strong>new</strong>(io : IO, initial_pos = <span class="n">0</span>)
 
-        <a class="method-permalink" href="#new(buffer:FastImage::Buffer)-class-method">#</a>
+        <a class="method-permalink" href="#new(io:IO,initial_pos=0)-class-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>We pass original position to #initialize, because some IOs (like HTTP) does not support #pos</p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage/meta.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta.cr#L12" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -323,7 +351,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage/meta.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -353,7 +381,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage/meta.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta.cr#L23" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -369,7 +397,23 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage/meta.cr#L6" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta.cr#L5" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="initial_pos:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>initial_pos</strong> : Int32
+
+        <a class="method-permalink" href="#initial_pos:Int32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta.cr#L6" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -385,7 +429,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/jetrockets/fastimage.cr/blob/0e76e2595ebf4b6e05be2cab4b81e39b71f1a184/src/fastimage/meta.cr#L5" target="_blank">View source</a>]
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/d5052d048d19695e6ed88cf0de9d2d2adca695ef/src/fastimage/meta.cr#L4" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -50,13 +50,18 @@
       
     </li>
   
-  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/Buffer" data-name="fastimage::buffer">
-      <a href="FastImage/Buffer.html">Buffer</a>
+  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/CUR" data-name="fastimage::cur">
+      <a href="FastImage/CUR.html">CUR</a>
       
     </li>
   
-  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/CUR" data-name="fastimage::cur">
-      <a href="FastImage/CUR.html">CUR</a>
+  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/Error" data-name="fastimage::error">
+      <a href="FastImage/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/jetrockets/fastimage.cr/FastImage/FormatError" data-name="fastimage::formaterror">
+      <a href="FastImage/FormatError.html">FormatError</a>
       
     </li>
   
@@ -153,7 +158,19 @@
   </svg>
 </a>Usage</h2>
 
-<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;fastimage&quot;</span></code></pre>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;fastimage&quot;</span>
+
+<span class="t">FastImage</span>.<span class="k">type</span>(<span class="s">&quot;https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png&quot;</span>) <span class="c">#png</span>
+
+<span class="t">FastImage</span>.dimensions(<span class="s">&quot;https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png&quot;</span>) <span class="c">#[2200, 1467]</span></code></pre>
+
+<h2><a id="feature-progress" class="anchor" href="#feature-progress">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Feature Progress</h2>
+
+<ul><li>[ ] Data sources</li><ul><li>[X] Remote file</li><li>[X] HTTP/HTTPS</li><li>[ ] Proxy</li><li>[ ] HTTP redirects</li><li>[X] Local file</li><li>[ ] IO</li><li>[ ] Base64</li></ul><li>[ ] File formats</li><ul><li>[X] BMP</li><li>[ ] CUR</li><li>[X] GIF</li><li>[ ] ICO</li><li>[X] JPEG</li><li>[ ] parse EXIF information for JPEG orientation</li><li>[X] PNG</li><li>[ ] PSD</li><li>[ ] SVG</li><li>[ ] TIFF</li><li>[ ] WEBP</li></ul></ul>
 
 <h2><a id="contributing" class="anchor" href="#contributing">
   <svg class="octicon-link" aria-hidden="true">
