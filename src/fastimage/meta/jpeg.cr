@@ -3,15 +3,30 @@ class FastImage
     MAGICK = [SEPARATOR, SOI_MARKER]
 
     SEPARATOR    = 0xff
-    SOI_MARKER   = 0xd8 # Start Of Image
-    EOI_MARKER   = 0xd9 # End Of Image
-    SOF_0_MARKER = 0xc0 # Start Of Frame (Baseline Sequential)
-    SOF_2_MARKER = 0xc2 # Start Of Frame (Progressive)
-    RST_0_MARKER = 0xd0 # ReSTart (0)
-    RST_7_MARKER = 0xd7 # ReSTart (7)
-    COM_MARKER   = 0xfe # Comment
 
-    SOS_MARKER = 0xda # Start Of Scan.
+    # Start of image
+    SOI_MARKER   = 0xd8
+
+    # End of image
+    EOI_MARKER   = 0xd9
+
+    # Start of frame (baseline sequential)
+    SOF_0_MARKER = 0xc0
+
+    # Start of frame (progressive)
+    SOF_2_MARKER = 0xc2
+
+    # Restart (0)
+    RST_0_MARKER = 0xd0
+
+    # Restart (7)
+    RST_7_MARKER = 0xd7
+
+    # Comment
+    COM_MARKER   = 0xfe
+
+    # Start of scans
+    SOS_MARKER = 0xda
 
     private def decode(io : IO)
       while marker = read_next(io)
