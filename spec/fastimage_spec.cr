@@ -13,7 +13,7 @@ VALID_IMAGES = {
   "test4.jpg"           => {format: "jpeg", dimensions: [1485, 1299]},
   # "test.tiff"                 => {format: "tiff", dimensions: [85, 67]},
   # "test2.tiff"                => {format: "tiff", dimensions: [333, 225]},
-  # "test.psd"                  => {format: "psd", dimensions: [17, 32]},
+  "test.psd"                  => {format: "psd", dimensions: [17, 32]},
   # "exif_orientation.jpg"      => {format: "jpeg", dimensions: [600, 450]},
   "infinite.jpg"              => {format: "jpeg", dimensions: [160, 240]},
   # "orient_2.jpg"              => {format: "jpeg", dimensions: [230, 408]},
@@ -35,53 +35,85 @@ VALID_IMAGES = {
 DOMAIN = "https://example.com/"
 
 Spectator.describe FastImage do
-  subject { FastImage }
-
   describe ".type" do
-    context "remote files" do
-      {% for path, data in VALID_IMAGES %}
+    {% for path, data in VALID_IMAGES %}
+      context "for remote .{{data[:format].id}}" do
+        let(:url) { Path[DOMAIN].join({{path}}).to_s }
+        let(:file) { File.open("spec/support/{{path.id}}") }
+
         it "is expected to match format" do
-          WebMock.stub(:get, Path[DOMAIN].join({{path}}).to_s).to_return(
-            body_io: File.open("spec/support/" + {{path}})
+          WebMock.stub(:get, url).to_return(
+            body_io: file
           )
 
-          expect(described_class.type(Path[DOMAIN].join({{path}}).to_s)).to eq({{ data[:format] }})
+          expect(described_class.type(url)).to eq({{ data[:format] }})
 
           WebMock.reset
         end
-      {% end %}
-    end
+      end
+    {% end %}
 
-    context "local files" do
-      {% for path, data in VALID_IMAGES %}
+    {% for path, data in VALID_IMAGES %}
+      context "for local .{{data[:format].id}}" do
+        let(:path) { Path["spec/support/"].join({{path}}).to_s }
+
         it "is expected to match format" do
-          expect(described_class.type(Path["spec/support/"].join({{path}}).to_s)).to eq({{ data[:format] }})
+          expect(described_class.type(path)).to eq({{ data[:format] }})
         end
-      {% end %}
+      end
+    {% end %}
+
+    context "for not existing remote file" do
+      let(:url) { Path[DOMAIN].join("does_not_exist").to_s }
+
+      it "returns `nil`" do
+        WebMock.stub(:get, url).to_return(status: 404)
+
+        expect(described_class.type(url)).to be_nil
+
+        WebMock.reset
+      end
     end
   end
 
   describe ".dimensions" do
-    context "remote files" do
-      {% for path, data in VALID_IMAGES %}
-        it "is expected to match format" do
-          WebMock.stub(:get, Path[DOMAIN].join({{path}}).to_s).to_return(
-            body_io: File.open("spec/support/" + {{path}})
+    {% for path, data in VALID_IMAGES %}
+      context "for remote .{{data[:format].id}}" do
+        let(:url) { Path[DOMAIN].join({{path}}).to_s }
+        let(:file) { File.open("spec/support/{{path.id}}") }
+
+        it "is expected to match dimensions" do
+          WebMock.stub(:get, url).to_return(
+            body_io: file
           )
 
-          expect(described_class.dimensions(Path[DOMAIN].join({{path}}).to_s)).to eq({{ data[:dimensions] }})
+          expect(described_class.dimensions(url)).to eq({{ data[:dimensions] }})
 
           WebMock.reset
         end
-      {% end %}
-    end
+      end
+    {% end %}
 
-    context "local files" do
-      {% for path, data in VALID_IMAGES %}
-        it "is expected to match format" do
-          expect(described_class.dimensions(Path["spec/support/"].join({{path}}).to_s)).to eq({{ data[:dimensions] }})
+    {% for path, data in VALID_IMAGES %}
+      context "for local .{{data[:format].id}}" do
+        let(:path) { Path["spec/support/"].join({{path}}).to_s }
+
+        it "is expected to match dimensions" do
+          expect(described_class.dimensions(path)).to eq({{ data[:dimensions] }})
         end
-      {% end %}
+      end
+    {% end %}
+
+    context "for not existing remote file" do
+      let(:url) { Path[DOMAIN].join("does_not_exist").to_s }
+
+      it "returns `nil`" do
+        WebMock.stub(:get, url).to_return(status: 404)
+
+        expect(described_class.dimensions(url)).to be_nil
+
+        WebMock.reset
+      end
     end
   end
 end

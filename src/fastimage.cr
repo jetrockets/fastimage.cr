@@ -34,7 +34,7 @@ class FastImage
 
   def fetch_using_http(**options)
     HTTP::Client.get(uri.to_s, headers: HTTP::Headers{"Accept-Encoding" => "identity"}) do |response|
-      @meta = parse_type(response.body_io, **options)
+      @meta = parse_type(response.body_io, **options) if response.status == HTTP::Status::OK
     end
   end
 
@@ -47,7 +47,7 @@ class FastImage
   def parse_type(io : IO, type_only = false, **options)
     tmp = Bytes.new(2)
     io.read(tmp)
-    # tmp = [io.read_byte, io.read_byte]
+
     case tmp
     when BMP::MAGICK
       type_only ? BMP.new : BMP.new(io, 2)
@@ -57,7 +57,7 @@ class FastImage
       type_only ? PNG.new : PNG.new(io, 2)
     when JPEG::MAGICK
       type_only ? JPEG.new : JPEG.new(io, 2)
-    when [56, 66]
+    when PSD::MAGICK
       type_only ? PSD.new : PSD.new(io, 2)
     when [77, 77]
       type_only ? TIFF.new : TIFF.new(io, 2)
