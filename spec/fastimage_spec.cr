@@ -74,6 +74,14 @@ Spectator.describe FastImage do
         WebMock.reset
       end
     end
+
+    context "for unknown type" do
+      let(:path) { Path["spec/support/"].join("test_rgb.ct").to_s }
+
+      it "returns nil" do
+        expect(described_class.type(path)).to be_nil
+      end
+    end
   end
 
   describe ".dimensions" do
@@ -113,6 +121,14 @@ Spectator.describe FastImage do
         expect(described_class.dimensions(url)).to be_nil
 
         WebMock.reset
+      end
+    end
+
+    context "for unknown type" do
+      let(:path) { Path["spec/support/"].join("test_rgb.ct").to_s }
+
+      it "returns nil" do
+        expect(described_class.dimensions(path)).to be_nil
       end
     end
   end

@@ -22,10 +22,24 @@ Library that finds the dimensions and type of an image fetching as little as nee
 
 ```crystal
 require "fastimage"
+```
 
-FastImage.type("https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png") #png
+### `.type : String|Nil`
 
-FastImage.dimensions("https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png") #[2200, 1467]
+Returns image type. Returns `nil` if image type is not supported.
+
+```crystal
+FastImage.type("https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png")
+# => png
+```
+
+### `.dimensions : Array(UInt32)|Nil`
+
+Returns image width and height as an Array. Returns `nil` if image type is not supported.
+
+```crystal
+FastImage.dimensions("https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png")
+# => [2200, 1467]
 ```
 
 ## Feature Progress
