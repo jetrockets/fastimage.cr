@@ -50,8 +50,8 @@ FastImage.dimensions("https://file-examples.com/wp-content/uploads/2017/10/file_
     - [ ] Proxy
     - [ ] HTTP redirects
   - [X] Local file
-  - [ ] IO
-  - [ ] Base64
+  - [X] IO
+  - [X] Base64
 - [ ] File formats
   - [X] BMP
   - [X] CUR

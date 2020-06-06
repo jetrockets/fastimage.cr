@@ -1,3 +1,4 @@
+require "base64"
 require "uri"
 require "http/client"
 
@@ -8,43 +9,63 @@ class FastImage
 
   class FormatError < Error; end
 
-  getter :uri
   getter meta : Meta? = nil
 
-  def self.dimensions(uri : URI | String)
-    new(uri).meta.try &.dimensions
+  def self.dimensions(source : URI | String | IO)
+    new(source).meta.try &.dimensions
   end
 
-  def self.type(uri : URI | String)
-    new(uri, type_only: true).meta.try &.type
+  def self.type(source : URI | String | IO)
+    new(source, type_only: true).meta.try &.type
   end
 
-  def initialize(uri : String, **options)
-    @uri = nil
-    initialize(URI.parse(uri), **options)
-  end
-
-  def initialize(@uri : URI, **options)
-    if uri.scheme == "http" || uri.scheme == "https"
-      fetch_using_http(**options)
-    elsif (uri.scheme.nil? || uri.scheme == "file") && !uri.path.nil?
-      fetch_using_file(**options)
+  def initialize(source : String, **options)
+    if source.starts_with?("data:")
+      fetch_using_base64(source, **options)
+    else
+      initialize(URI.parse(source), **options)
     end
   end
 
-  def fetch_using_http(**options)
-    HTTP::Client.get(uri.to_s, headers: HTTP::Headers{"Accept-Encoding" => "identity"}) do |response|
+  def initialize(uri : URI, **options)
+    if uri.scheme == "http" || uri.scheme == "https"
+      fetch_using_http(uri, **options)
+    elsif (uri.scheme.nil? || uri.scheme == "file") && !uri.path.nil?
+      fetch_using_file(uri, **options)
+    end
+  end
+
+  def initialize(io : IO, **options)
+    fetch_using_io(io, **options)
+  end
+
+  private def fetch_using_base64(enc : String, **options)
+    data = enc.split(',')[1]
+    fetch_using_io(IO::Memory.new(Base64.decode_string(data)))
+  end
+
+  private def fetch_using_io(io : IO, **options)
+    begin
+      io.rewind unless io.pos.zero?
+    rescue _e : IO::Error
+    end
+
+    @meta = parse_type(io, **options)
+  end
+
+  private def fetch_using_http(uri : URI, **options)
+    HTTP::Client.get(uri.to_s) do |response|
       @meta = parse_type(response.body_io, **options) if response.status == HTTP::Status::OK
     end
   end
 
-  def fetch_using_file(**options)
+  private def fetch_using_file(uri : URI, **options)
     File.open(uri.to_s) do |file|
       @meta = parse_type(file, **options)
     end
   end
 
-  def parse_type(io : IO, type_only = false, **options)
+  private def parse_type(io : IO, type_only = false, **options)
     tmp = Bytes.new(2)
     io.read(tmp)
 

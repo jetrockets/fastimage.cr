@@ -48,7 +48,7 @@ class FastImage
       tmp = Bytes.new(4)
       io.read(tmp)
 
-      tmp = tmp.map{ |element| element.to_u32 }
+      tmp = tmp.map { |element| element.to_u32 }
 
       @width = (1 + (((tmp[1] & 0x3f) << 8) | tmp[0])).to_u32
       @height = (1 + (((tmp[3] & 0xF) << 10) | (tmp[2] << 2) | ((tmp[1] & 0xC0) >> 6))).to_u32
@@ -64,7 +64,7 @@ class FastImage
       tmp = Bytes.new(6)
       io.read(tmp)
 
-      tmp = tmp.map{ |element| element.to_u32 }
+      tmp = tmp.map { |element| element.to_u32 }
 
       @width = (1 + tmp[0] + (tmp[1] << 8) + (tmp[2] << 16)).to_u32
       @height = (1 + tmp[3] + (tmp[4] << 8) + (tmp[5] << 16)).to_u32

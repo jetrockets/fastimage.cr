@@ -2,13 +2,13 @@ class FastImage
   struct JPEG < Meta
     MAGICK = Bytes[SEPARATOR, SOI_MARKER]
 
-    SEPARATOR    = 0xff
+    SEPARATOR = 0xff
 
     # Start of image
-    SOI_MARKER   = 0xd8
+    SOI_MARKER = 0xd8
 
     # End of image
-    EOI_MARKER   = 0xd9
+    EOI_MARKER = 0xd9
 
     # Start of frame (baseline sequential)
     SOF_0_MARKER = 0xc0
@@ -23,7 +23,7 @@ class FastImage
     RST_7_MARKER = 0xd7
 
     # Comment
-    COM_MARKER   = 0xfe
+    COM_MARKER = 0xfe
 
     # Start of scans
     SOS_MARKER = 0xda
