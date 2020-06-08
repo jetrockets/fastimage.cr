@@ -6,6 +6,10 @@
 
 Library that finds the dimensions and type of an image fetching as little as needed.
 
+## Documentation
+
+[https://jetrockets.github.io/fastimage.cr](https://jetrockets.github.io/fastimage.cr)
+
 ## Installation
 
 1. Add the dependency to your `shard.yml`:

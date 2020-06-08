@@ -40,7 +40,7 @@ GZIPPED_IMAGES = {
 DOMAIN = "https://example.com/"
 
 DATA_URIS = {
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAD0lEQVR42mNk+M9QzwAEAAmGAYCF+yOnAAAAAElFTkSuQmCC" => { format: "png", dimensions: [2, 1] }
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAD0lEQVR42mNk+M9QzwAEAAmGAYCF+yOnAAAAAElFTkSuQmCC" => {format: "png", dimensions: [2, 1]},
 }
 
 Spectator.describe FastImage do
@@ -136,6 +136,16 @@ Spectator.describe FastImage do
     end
   end
 
+  describe ".type!" do
+    context "for unknown format" do
+      let(:path) { Path["spec/support/"].join("test_rgb.ct").to_s }
+
+      it "raises FastImage::UnknownTypeError" do
+        expect { described_class.type!(path) }.to raise_error(FastImage::UnknownTypeError)
+      end
+    end
+  end
+
   describe ".dimensions" do
     {% for path, data in VALID_IMAGES %}
       context "for remote .{{data[:format].id}}" do
@@ -204,6 +214,16 @@ Spectator.describe FastImage do
 
       it "returns nil" do
         expect(described_class.dimensions(path)).to be_nil
+      end
+    end
+  end
+
+  describe ".dimensions!" do
+    context "for unknown format" do
+      let(:path) { Path["spec/support/"].join("test_rgb.ct").to_s }
+
+      it "raises FastImage::UnknownTypeError" do
+        expect { described_class.dimensions!(path) }.to raise_error(FastImage::UnknownTypeError)
       end
     end
   end
