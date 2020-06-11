@@ -27,13 +27,13 @@ class FastImage
   def self.dimensions(source : URI | String | IO) : Array(UInt16 | Nil)?
     new.process(source).try &.dimensions
   rescue FormatError
-    return nil
+    nil
   rescue UnknownTypeError
-    return nil
+    nil
   rescue UnknownSourceError
-    return nil
+    nil
   rescue ReadError
-    return nil
+    nil
   end
 
   # Initializes `FastImage` and tries to fetch image dimensions.
@@ -55,13 +55,13 @@ class FastImage
       type_only: true
     ).process(source).type
   rescue FormatError
-    return nil
+    nil
   rescue UnknownTypeError
-    return nil
+    nil
   rescue UnknownSourceError
-    return nil
+    nil
   rescue ReadError
-    return nil
+    nil
   end
 
   # Initializes `FastImage` and tries to determine image type.
