@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Crystal Docs 0.34.0">
-<meta name="crystal_docs.project_version" content="1.0.1">
+<meta name="crystal_docs.project_version" content="HEAD">
 <meta name="crystal_docs.project_name" content="fastimage">
 
 
@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="fastimage">
-  <title>fastimage 1.0.1</title>
+  <title>fastimage HEAD</title>
   <script type="text/javascript">
   CrystalDocs.base_path = "";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        1.0.1
+        HEAD
       </span>
     </div>
   </div>
@@ -235,16 +235,32 @@
 <pre><code class="language-crystal"><span class="t">FastImage</span>.<span class="k">type</span>(<span class="s">&quot;https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png&quot;</span>)
 <span class="c"># =&gt; png</span></code></pre>
 
-<h3><a id=".dimensions-arrayu-int32nil" class="anchor" href="#.dimensions-arrayu-int32nil">
+<h3><a id=".type-string" class="anchor" href="#.type-string">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a><code>.dimensions : Array(UInt32)|Nil</code></h3>
+</a><code>.type! : String</code></h3>
+
+<p>Same as <code>#type</code>, but raise exception if anything goes wrong.</p>
+
+<h3><a id=".dimensions-arrayu-int16nil" class="anchor" href="#.dimensions-arrayu-int16nil">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a><code>.dimensions : Array(UInt16)|Nil</code></h3>
 
 <p>Returns image width and height as an Array. Returns <code>nil</code> if image type is not supported.</p>
 
 <pre><code class="language-crystal"><span class="t">FastImage</span>.dimensions(<span class="s">&quot;https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png&quot;</span>)
 <span class="c"># =&gt; [2200, 1467]</span></code></pre>
+
+<h3><a id=".dimensions-arrayu-int16" class="anchor" href="#.dimensions-arrayu-int16">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a><code>.dimensions! : Array(UInt16)</code></h3>
+
+<p>Same as <code>#dimensions</code>, but raise exception if anything goes wrong.</p>
 
 <h2><a id="feature-progress" class="anchor" href="#feature-progress">
   <svg class="octicon-link" aria-hidden="true">
