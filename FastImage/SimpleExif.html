@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="fastimage">
-  <title>FastImage::TIFF - fastimage 1.0.1</title>
+  <title>FastImage::SimpleExif - fastimage 1.0.1</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -111,7 +111,7 @@
       
     </li>
   
-  <li class="parent " data-id="fastimage/FastImage/SimpleExif" data-name="fastimage::simpleexif">
+  <li class="parent open current" data-id="fastimage/FastImage/SimpleExif" data-name="fastimage::simpleexif">
       <a href="../FastImage/SimpleExif.html">SimpleExif</a>
       
         <ul>
@@ -131,7 +131,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="fastimage/FastImage/TIFF" data-name="fastimage::tiff">
+  <li class="parent " data-id="fastimage/FastImage/TIFF" data-name="fastimage::tiff">
       <a href="../FastImage/TIFF.html">TIFF</a>
       
         <ul>
@@ -180,10 +180,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> FastImage::TIFF
+  <span class="kind">abstract class</span> FastImage::SimpleExif
 
 </h1>
 
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../FastImage/SimpleExif.html">FastImage::SimpleExif</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -211,8 +213,8 @@
   </h2>
   
     
-      <a href="https://github.com/jetrockets/fastimage.cr/blob/v1.0.1/src/fastimage/meta/tiff.cr#L2" target="_blank">
-        fastimage/meta/tiff.cr
+      <a href="https://github.com/jetrockets/fastimage.cr/blob/v1.0.1/src/fastimage/simple_exif.cr#L2" target="_blank">
+        fastimage/simple_exif.cr
       </a>
     
     <br/>
@@ -220,9 +222,45 @@
 
 
 
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="TAG_MARK">
+        <strong>TAG_MARK</strong> = <code><span class="n">42</span></code>
+      </dt>
+      
+    
+  </dl>
 
 
 
+
+
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#decode(io:IO,byte_format)-class-method" class="signature"><strong>.decode</strong>(io : IO, byte_format)</a>
+        
+      </li>
+    
+  </ul>
 
 
 
@@ -232,10 +270,56 @@
 
 <div class="methods-inherited">
   
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
 </div>
 
 
 
+
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="decode(io:IO,byte_format)-class-method">
+      <div class="signature">
+        
+        def self.<strong>decode</strong>(io : IO, byte_format)
+
+        <a class="method-permalink" href="#decode(io:IO,byte_format)-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/jetrockets/fastimage.cr/blob/v1.0.1/src/fastimage/simple_exif.cr#L17" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
 
 
 
