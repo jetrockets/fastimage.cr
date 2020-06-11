@@ -37,7 +37,11 @@ FastImage.type("https://file-examples.com/wp-content/uploads/2017/10/file_exampl
 # => png
 ```
 
-### `.dimensions : Array(UInt32)|Nil`
+### `.type! : String`
+
+Same as `#type`, but raise exception if anything goes wrong.
+
+### `.dimensions : Array(UInt16)|Nil`
 
 Returns image width and height as an Array. Returns `nil` if image type is not supported.
 
@@ -45,6 +49,10 @@ Returns image width and height as an Array. Returns `nil` if image type is not s
 FastImage.dimensions("https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png")
 # => [2200, 1467]
 ```
+
+### `.dimensions! : Array(UInt16)`
+
+Same as `#dimensions`, but raise exception if anything goes wrong.
 
 ## Feature Progress
 
