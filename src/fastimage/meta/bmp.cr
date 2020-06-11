@@ -9,11 +9,11 @@ class FastImage
       header = IO::ByteFormat::SystemEndian.decode(UInt8, tmp[relative(14..15)])
 
       if header >= 40
-        @width = IO::ByteFormat::LittleEndian.decode(Int32, tmp[relative(18..21)]).abs.to_u32
-        @height = IO::ByteFormat::LittleEndian.decode(Int32, tmp[relative(22..25)]).abs.to_u32
+        @width = IO::ByteFormat::LittleEndian.decode(Int32, tmp[relative(18..21)]).abs.to_u16
+        @height = IO::ByteFormat::LittleEndian.decode(Int32, tmp[relative(22..25)]).abs.to_u16
       else
-        @width = IO::ByteFormat::LittleEndian.decode(UInt8, tmp[relative(18..19)]).to_u32
-        @height = IO::ByteFormat::LittleEndian.decode(UInt8, tmp[relative(20..25)]).to_u32
+        @width = IO::ByteFormat::LittleEndian.decode(UInt8, tmp[relative(18..19)]).to_u16
+        @height = IO::ByteFormat::LittleEndian.decode(UInt8, tmp[relative(20..25)]).to_u16
       end
     end
   end

@@ -29,6 +29,8 @@ class FastImage
     SOS_MARKER = 0xda
 
     private def decode(io : IO)
+      orientation = nil
+
       while marker = read_next(io)
         case marker
         when 0x00
@@ -44,24 +46,39 @@ class FastImage
           @width = read_int(io)
           components = io.read_byte.not_nil!
 
-          raise FormatError.new(
-            "JPEG with data precision other then 8 bits are not supported"
-          ) unless precision == 8
-
-          raise FormatError.new(
-            "Length of JPEG segment should equal 8 + number_of_components * 3"
-          ) unless (length == 8 + components * 3)
+          validate_precision!(precision)
+          validate_segment_length!(length, components)
         when EOI_MARKER, SOS_MARKER
           break
         when COM_MARKER
           # TODO: parse comment information here
           io.skip(read_segment_remaining_length(io))
         when 0xE1 # APP1, contains EXIF tag
-          # TODO: parse EXIF information here
-          io.skip(read_segment_remaining_length(io))
+          length = read_segment_remaining_length(io)
+          if io.read_string(4) == "Exif" && !orientation
+            io.skip(2)
+
+            tmp = Bytes.new(2)
+            io.read(tmp)
+
+            case tmp
+            when TIFF::LittleEndian::MAGICK
+              _, _, orientation = read_exif(io, length - 8, IO::ByteFormat::LittleEndian)
+            when TIFF::BigEndian::MAGICK
+              _, _, orientation = read_exif(io, length - 8, IO::ByteFormat::BigEndian)
+            else
+              raise FormatError.new("Byte format of Exif should be either Big or LittleEndian")
+            end
+          else
+            io.skip(length - 4)
+          end
         else
           io.skip(read_segment_remaining_length(io))
         end
+      end
+
+      if orientation && orientation.rotated?
+        @width, @height = @height, @width
       end
     end
 
@@ -82,12 +99,32 @@ class FastImage
     end
 
     private def read_int(io : IO)
-      UInt16.from_io(io, IO::ByteFormat::BigEndian).to_u32
+      UInt16.from_io(io, IO::ByteFormat::BigEndian).to_u16
     end
 
     private def read_segment_remaining_length(io : IO)
       # We remove 2, because we are already at the first byte of segment
       read_int(io) - 2
+    end
+
+    private def read_exif(io, length, byte_format)
+      memory = IO::Memory.new(length)
+      IO.copy(io, memory, length)
+      memory.rewind
+
+      FastImage::SimpleExif.decode(memory, byte_format)
+    end
+
+    private def validate_precision!(precision)
+      raise FormatError.new(
+        "JPEG with data precision other then 8 bits are not supported"
+      ) unless precision == 8
+    end
+
+    private def validate_segment_length!(length, components)
+      raise FormatError.new(
+        "Length of JPEG segment should equal 8 + number_of_components * 3"
+      ) unless (length == 8 + components * 3)
     end
   end
 end

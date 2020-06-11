@@ -62,11 +62,11 @@ FastImage.dimensions("https://file-examples.com/wp-content/uploads/2017/10/file_
   - [X] GIF
   - [X] ICO
   - [X] JPEG
-    - [ ] parse EXIF information for JPEG orientation
+    - [X] parse EXIF information for JPEG orientation
   - [X] PNG
   - [X] PSD
   - [ ] SVG
-  - [ ] TIFF
+  - [X] TIFF
   - [X] WEBP
 
 

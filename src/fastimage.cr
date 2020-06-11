@@ -11,38 +11,73 @@ class FastImage
 
   class UnknownTypeError < Error; end
 
+  class UnknownSourceError < Error; end
+
+  class ReadError < Error; end
+
   getter? type_only = false
-  getter? raise_on_failure = false
 
-  def self.dimensions(source : URI | String | IO)
+  # Initializes `FastImage` and tries to fetch image dimensions.
+  # Returns `nil` if dimensions cannot be fetched.
+  #
+  # ```
+  # FastImage.dimensions("https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png")
+  # => [2200, 1467]
+  # ```
+  def self.dimensions(source : URI | String | IO) : Array(UInt16 | Nil)?
     new.process(source).try &.dimensions
+  rescue FormatError
+    return nil
+  rescue UnknownTypeError
+    return nil
+  rescue UnknownSourceError
+    return nil
+  rescue ReadError
+    return nil
   end
 
-  def self.dimensions!(source : URI | String | IO)
-    new(
-      raise_on_failure: true
-    ).process(source).try &.dimensions
+  # Initializes `FastImage` and tries to fetch image dimensions.
+  # Raises exception inherited from `FastImage::Error` (`FastImage::FormatError`, `UnknownTypeError`, `UnknownSourceError`, `ReadError`)
+  # if dimensions cannot be fetched.
+  def self.dimensions!(source : URI | String | IO) : Array(UInt16 | Nil)
+    new.process(source).not_nil!.dimensions
   end
 
-  def self.type(source : URI | String | IO)
+  # Initializes `FastImage` and tries to determine image type.
+  # Returns `nil` if type cannot be determined.
+  #
+  # ```
+  # FastImage.type("https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png")
+  # => "png"
+  # ```
+  def self.type(source : URI | String | IO) : String?
     new(
       type_only: true
-    ).process(source).try &.type
+    ).process(source).type
+  rescue FormatError
+    return nil
+  rescue UnknownTypeError
+    return nil
+  rescue UnknownSourceError
+    return nil
+  rescue ReadError
+    return nil
   end
 
-  def self.type!(source : URI | String | IO)
+  # Initializes `FastImage` and tries to determine image type.
+  # Raises exception inherited from `FastImage::Error` (`FastImage::FormatError`, `UnknownTypeError`, `UnknownSourceError`, `ReadError`)
+  # if type cannot be determined.
+  def self.type!(source : URI | String | IO) : String
     new(
       type_only: true,
-      raise_on_failure: true
-    ).process(source).try &.type
+    ).process(source).not_nil!.type
   end
 
   def initialize(**options)
     @type_only = options[:type_only]? || false
-    @raise_on_failure = options[:raise_on_failure]? || false
   end
 
-  def process(source : String) : FastImage::Meta?
+  def process(source : String) : FastImage::Meta
     if source.starts_with?("data:")
       fetch_using_base64(source)
     else
@@ -50,15 +85,17 @@ class FastImage
     end
   end
 
-  def process(uri : URI) : FastImage::Meta?
+  def process(uri : URI) : FastImage::Meta
     if uri.scheme == "http" || uri.scheme == "https"
       fetch_using_http(uri)
     elsif (uri.scheme.nil? || uri.scheme == "file") && !uri.path.nil?
       fetch_using_file(uri)
+    else
+      raise UnknownSourceError.new("Seems that URI is not a HTTP/HTTPs link and not a file path")
     end
   end
 
-  def process(io : IO) : FastImage::Meta?
+  def process(io : IO) : FastImage::Meta
     fetch_using_io(io)
   end
 
@@ -78,7 +115,11 @@ class FastImage
 
   private def fetch_using_http(uri : URI)
     HTTP::Client.get(uri.to_s) do |response|
-      parse_type(response.body_io) if response.status == HTTP::Status::OK
+      if response.status == HTTP::Status::OK
+        parse_type(response.body_io)
+      else
+        raise ReadError.new("HTTP status: #{response.status.to_i}")
+      end
     end
   end
 
@@ -94,40 +135,46 @@ class FastImage
 
     case tmp
     when BMP::MAGICK
-      type_only? ? BMP.new : BMP.new(io, 2)
+      type_only? ? BMP.new : BMP.new(io, initial_pos: 2)
     when GIF::MAGICK
-      type_only? ? GIF.new : GIF.new(io, 2)
+      type_only? ? GIF.new : GIF.new(io, initial_pos: 2)
     when PNG::MAGICK
-      type_only? ? PNG.new : PNG.new(io, 2)
+      type_only? ? PNG.new : PNG.new(io, initial_pos: 2)
     when JPEG::MAGICK
-      type_only? ? JPEG.new : JPEG.new(io, 2)
+      type_only? ? JPEG.new : JPEG.new(io, initial_pos: 2)
     when PSD::MAGICK
-      type_only? ? PSD.new : PSD.new(io, 2)
-    when [77, 77]
-      type_only? ? TIFF.new : TIFF.new(io, 2)
+      type_only? ? PSD.new : PSD.new(io, initial_pos: 2)
+    when TIFF::LittleEndian::MAGICK
+      type_only? ? TIFF::LittleEndian.new : TIFF::LittleEndian.new(io, initial_pos: 2)
+    when TIFF::BigEndian::MAGICK
+      type_only? ? TIFF::BigEndian.new : TIFF::BigEndian.new(io, initial_pos: 2)
     when ICO::MAGICK
       byte = io.read_byte
+
       if byte == 1
-        type_only? ? ICO.new : ICO.new(io, 3)
+        type_only? ? ICO.new : ICO.new(io, initial_pos: 3)
       elsif byte == 2
-        type_only? ? CUR.new : CUR.new(io, 3)
+        type_only? ? CUR.new : CUR.new(io, initial_pos: 3)
       else
-        nil
+        raise UnknownTypeError.new
       end
     when WEBP::MAGICK[0..1]
       io.read(tmp)
 
       if tmp == WEBP::MAGICK[2..3]
-        type_only? ? WEBP.new : WEBP.new(io, 4)
+        type_only? ? WEBP.new : WEBP.new(io, initial_pos: 4)
+      else
+        raise UnknownTypeError.new
       end
     when [60, 63], [60, 33] # <?xml, <!D
       # if cache.gets(250).includes?("<svg")
       #   type_only? ? SVG.new : SVG.new(cache)
       # end
+      raise UnknownTypeError.new
     when [60, 115]
-      type_only? ? SVG.new : SVG.new(io, 3)
+      type_only? ? SVG.new : SVG.new(io, initial_pos: 3)
     else
-      raise_on_failure? ? raise UnknownTypeError.new : nil
+      raise UnknownTypeError.new
     end
   end
 end

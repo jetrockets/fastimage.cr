@@ -13,7 +13,7 @@ class FastImage
         current.zero? ? 256 : current
       end
 
-      @width = @height = sizes.max.to_u32
+      @width = @height = sizes.max.to_u16
     end
   end
 end

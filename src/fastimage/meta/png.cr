@@ -6,8 +6,8 @@ class FastImage
       tmp = Bytes.new(24 - initial_pos)
       io.read_fully(tmp)
 
-      @width = IO::ByteFormat::BigEndian.decode(UInt32, tmp[relative(16..19)])
-      @height = IO::ByteFormat::BigEndian.decode(UInt32, tmp[relative(20..23)])
+      @width = IO::ByteFormat::BigEndian.decode(UInt32, tmp[relative(16..19)]).to_u16
+      @height = IO::ByteFormat::BigEndian.decode(UInt32, tmp[relative(20..23)]).to_u16
     end
   end
 end

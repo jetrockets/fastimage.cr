@@ -1,16 +1,18 @@
 class FastImage
-  # Struct to support different file types parsing
+  # Struct to support different file types
   abstract struct Meta
-    getter width : UInt32? = nil
-    getter height : UInt32? = nil
+    getter width : UInt16? = nil
+    getter height : UInt16? = nil
     getter initial_pos = 0
 
     def initialize
     end
 
-    # We pass original position to #initialize, because some IOs (like HTTP) does not support #pos
+    # Creates a new `FastImage::Meta` struct.
+    # *initial_pos* should be passed because some IOs (eg. `HTTP`) does not support `IO#pos` method.
     def initialize(io : IO, initial_pos = 0)
       @initial_pos = initial_pos
+
       decode(io)
     end
 
@@ -20,6 +22,7 @@ class FastImage
       end
     end
 
+    # Returns an `Array` of `#width` and `#height`.
     def dimensions
       [width, height]
     end
@@ -36,4 +39,5 @@ class FastImage
   end
 end
 
+require "./simple_exif"
 require "./meta/*"
