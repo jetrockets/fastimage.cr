@@ -48,6 +48,8 @@ class FastImage
 
           validate_precision!(precision)
           validate_segment_length!(length, components)
+
+          break
         when EOI_MARKER, SOS_MARKER
           break
         when COM_MARKER
