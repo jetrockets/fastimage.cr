@@ -41,16 +41,16 @@ FastImage.type("https://file-examples.com/wp-content/uploads/2017/10/file_exampl
 
 Same as `#type`, but raise exception if anything goes wrong.
 
-### `.dimensions : Array(UInt16)|Nil`
+### `.dimensions : Tuple(UInt16?, UInt16?)|Nil`
 
-Returns image width and height as an Array. Returns `nil` if image type is not supported.
+Returns image width and height as a `Tuple(UInt16?, UInt16?)`. Returns `nil` if image type is not supported.
 
 ```crystal
 FastImage.dimensions("https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png")
 # => [2200, 1467]
 ```
 
-### `.dimensions! : Array(UInt16)`
+### `.dimensions! : Tuple(UInt16?, UInt16?)`
 
 Same as `#dimensions`, but raise exception if anything goes wrong.
 

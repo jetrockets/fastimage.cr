@@ -24,7 +24,7 @@ class FastImage
   # FastImage.dimensions("https://file-examples.com/wp-content/uploads/2017/10/file_example_PNG_3MB.png")
   # => [2200, 1467]
   # ```
-  def self.dimensions(source : URI | String | IO) : Array(UInt16 | Nil)?
+  def self.dimensions(source : URI | String | IO) : Tuple(UInt16?, UInt16?)?
     new.process(source).try &.dimensions
   rescue FormatError
     nil
@@ -39,8 +39,11 @@ class FastImage
   # Initializes `FastImage` and tries to fetch image dimensions.
   # Raises exception inherited from `FastImage::Error` (`FastImage::FormatError`, `UnknownTypeError`, `UnknownSourceError`, `ReadError`)
   # if dimensions cannot be fetched.
-  def self.dimensions!(source : URI | String | IO) : Array(UInt16 | Nil)
-    new.process(source).not_nil!.dimensions
+  def self.dimensions!(source : URI | String | IO) : Tuple(UInt16, UInt16)
+    dimensions = new.process(source).not_nil!.dimensions
+    raise FastImage::Error.new("Cannot fetch dimensions for #{source}") if dimensions[0].nil? || dimensions[1].nil?
+
+    dimensions.map &.not_nil!
   end
 
   # Initializes `FastImage` and tries to determine image type.

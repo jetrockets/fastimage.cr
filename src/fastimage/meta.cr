@@ -24,7 +24,7 @@ class FastImage
 
     # Returns an `Array` of `#width` and `#height`.
     def dimensions
-      [width, height]
+      {width, height}
     end
 
     private abstract def decode(io : IO)
