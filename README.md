@@ -1,6 +1,6 @@
 # fastimage.cr
 
-[![Build Status](https://travis-ci.org/jetrockets/fastimage.cr.svg?branch=master)](https://travis-ci.org/jetrockets/fastimage.cr)
+[![Build Status](https://github.com/jetrockets/fastimage.cr/workflows/specs/badge.svg?branch=master)](https://github.com/jetrockets/fastimage.cr/actions)
 [![GitHub release](https://img.shields.io/github/release/jetrockets/fastimage.cr.svg)](https://GitHub.com/jetrockets/fastimage.cr/releases/)
 [![GitHub license](https://img.shields.io/github/license/jetrockets/fastimage.cr)](https://github.com/jetrockets/fastimage.cr/blob/master/LICENSE)
 
